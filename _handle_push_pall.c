@@ -23,7 +23,7 @@ void print_all(stack_t **h, unsigned int line_number)
 
 		while (curr != NULL)
 		{
-			printf("%d\n", curr->n);
+			fprintf(stdout, "%d\n", curr->n);
 			curr = curr->next;
 		}
 	}

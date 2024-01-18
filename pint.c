@@ -19,6 +19,6 @@ void print_top(stack_t **h, unsigned int line_number)
 	}
 
 	temp = *h;
-	printf("%d\n", temp->n);
+	fprintf(stdout, "%d\n", temp->n);
 	free(temp);
 }
