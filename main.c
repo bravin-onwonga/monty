@@ -1,6 +1,6 @@
 #include "monty.h"
 
-#define MAX_LINE_LENGTH 256
+stack_t **stack = NULL;
 
 void process_opcode(char *str, int fileline);
 char *remove_spaces(char *str);
@@ -17,9 +17,8 @@ int main(int argc, char **argv)
 {
 	FILE *file;
 	char *filename = argv[1];
-	char opcode[MAX_LINE_LENGTH];
+	char opcode[256];
 	int fileline = 0;
-	stack_t **stack = NULL;
 	stack_t *top = NULL;
 
 	stack = &top;
@@ -38,7 +37,7 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	while (fgets(opcode, MAX_LINE_LENGTH, file) != NULL)
+	while (fgets(opcode, sizeof(opcode), file) != NULL)
 	{
 		fileline = fileline + 1;
 		process_opcode(opcode, fileline);

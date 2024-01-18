@@ -50,7 +50,6 @@ stack_t *_push(char **arr, unsigned int line_number)
 			if (s[j] < '0' || s[j] > '9')
 			{
 				err_str = arr_to_str(arr);
-				printf("%s---\n", s);
 				fprintf(stderr, "L%d: unknown instruction %s\n", line_number, err_str);
 				exit(EXIT_FAILURE);
 			}
@@ -81,7 +80,10 @@ stack_t *add_dnodeint(stack_t **head, const int n)
 	new_node = malloc(sizeof(stack_t));
 
 	if (new_node == NULL)
-		return (NULL);
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 
 	new_node->n = n;
 
