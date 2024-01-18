@@ -49,5 +49,6 @@ void _strcpy(char *dest, char *src);
 /** Instructions */
 stack_t *_push(char **arr, unsigned int line_number);
 void print_all(stack_t **h, unsigned int line_number);
+void print_top(stack_t **h, unsigned int line_number);
 
 #endif /*MONTY_H*/

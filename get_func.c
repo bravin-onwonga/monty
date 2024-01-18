@@ -11,6 +11,7 @@ void (*get_func(char *str))(stack_t **, unsigned int)
 {
 	instruction_t _funcs[] = {
 	    {"pall", print_all},
+	    {"pint", print_top},
 	};
 
 	int i;
