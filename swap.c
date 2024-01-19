@@ -3,7 +3,7 @@
 /**
  * swap - swaps the two top values
  *
- * @h: head node
+ * @stack: head node
  * @line_number: line number of command in file
  */
 

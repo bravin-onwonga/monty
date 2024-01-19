@@ -53,6 +53,8 @@ void print_top(stack_t **h, unsigned int line_number);
 void pop(stack_t **h, unsigned int line_number);
 void swap(stack_t **h, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+
 stack_t *add_dnodeint(stack_t **head, const int n);
 
 #endif /*MONTY_H*/

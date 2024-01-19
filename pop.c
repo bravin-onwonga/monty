@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * pop_top - pops the value at the top of the stack
+ * pop - pops the value at the top of the stack
  *
  * @h: head node
  * @line_number: line number of command in file
