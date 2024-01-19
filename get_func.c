@@ -16,6 +16,7 @@ void (*get_func(char *str))(stack_t **, unsigned int)
 	    {"swap", swap},
 	    {"add", add},
 	    {"nop", nop},
+	    {NULL, NULL},
 	};
 
 	int i;
