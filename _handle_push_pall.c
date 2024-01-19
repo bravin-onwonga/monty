@@ -38,7 +38,7 @@ void print_all(stack_t **h, unsigned int line_number __attribute__((unused)))
 stack_t *_push(char **arr, unsigned int line_number)
 {
 	int j, n;
-	char *s, *err_str;
+	char *s;
 
 	if (arr[1])
 	{
@@ -47,12 +47,16 @@ stack_t *_push(char **arr, unsigned int line_number)
 		{
 			if (s[j] < '0' || s[j] > '9')
 			{
-				err_str = arr_to_str(arr);
-				fprintf(stderr, "L%d: unknown instruction %s\n", line_number, err_str);
+				fprintf(stderr, "L%d: usage: push integer\n", line_number);
 				exit(EXIT_FAILURE);
 			}
 		}
 		n = atoi(s);
+	}
+	else
+	{
+		fprintf(stderr, "L%d: usage: push integer %s\n", line_number);
+		exit(EXIT_FAILURE);
 	}
 
 	*stack = add_dnodeint(stack, n);
@@ -102,51 +106,4 @@ stack_t *add_dnodeint(stack_t **head, const int n)
 	}
 
 	return (*head);
-}
-
-/**
- * arr_to_str - reverts array back to string
- *
- * @arr: array
- * Return: string
- */
-
-char *arr_to_str(char **arr)
-{
-	char *s;
-	int len = 0, i = 0, j = 0, k;
-
-	while (arr[i])
-	{
-		len += strlen(arr[i]);
-		i++;
-	}
-	len += i;
-
-	s = malloc(sizeof(char) * len);
-
-	if (s == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-
-	i = 0;
-	while (arr[i])
-	{
-		k = 0;
-		while (arr[i][k])
-		{
-			s[j] = arr[i][k];
-			j++;
-			k++;
-		}
-		i++;
-		if (arr[i])
-		{
-			s[j] = ' ';
-			j++;
-		}
-	}
-	return (s);
 }

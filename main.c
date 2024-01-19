@@ -17,9 +17,11 @@ int main(int argc, char **argv)
 {
 	FILE *file;
 	char *filename = argv[1];
-	char opcode[256];
+	char *opcode = NULL;
+	size_t opcode_size = 0;
 	int fileline = 0;
 	stack_t *top = NULL;
+	ssize_t read = 1;
 
 	stack = &top;
 
@@ -37,15 +39,16 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	while (fgets(opcode, sizeof(opcode), file) != NULL)
+	while ((read = getline(&opcode, &opcode_size, file)) != -1)
 	{
 		fileline = fileline + 1;
 		process_opcode(opcode, fileline);
 	}
 
+	free(opcode);
 	fclose(file);
 
-	return (0);
+	exit(EXIT_SUCCESS);
 }
 
 /**
@@ -72,7 +75,7 @@ void process_opcode(char *str, int fileline)
 
 	else
 	{
-		func_ptr = get_func(new_str);
+		func_ptr = get_func(opcode_arr[0]);
 
 		if (!(func_ptr))
 		{
