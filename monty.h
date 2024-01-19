@@ -59,4 +59,6 @@ void nop(stack_t **stack, unsigned int line_number);
 
 stack_t *add_dnodeint(stack_t **head, const int n);
 
+void handle_free(char **arr);
+
 #endif /*MONTY_H*/

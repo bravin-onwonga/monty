@@ -84,7 +84,7 @@ void process_opcode(char *str, int fileline)
 		}
 		func_ptr(stack, fileline);
 	}
-	free(opcode_arr);
+	handle_free(opcode_arr);
 }
 
 /**
@@ -128,8 +128,6 @@ char *remove_spaces(char *str)
 			j++;
 		}
 	}
-
-	free(str);
 
 	return (s);
 }
