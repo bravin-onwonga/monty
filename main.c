@@ -59,35 +59,27 @@ void process_opcode(char *str, int fileline)
 {
 	char *new_str;
 	char **opcode_arr;
-	int i = 0;
 	void (*func_ptr)(stack_t **, unsigned int);
 
 	new_str = remove_spaces(str);
 
 	opcode_arr = split_string(new_str);
 
-	i = 0;
-	while (opcode_arr[i])
+	if (strcmp(opcode_arr[0], "push") == 0)
 	{
-		if (strcmp(opcode_arr[i], "push") == 0)
-		{
-			*stack = _push(opcode_arr, fileline);
-			break;
-		}
+		*stack = _push(opcode_arr, fileline);
+	}
 
-		else
-		{
-			func_ptr = get_func(opcode_arr[i]);
+	else
+	{
+		func_ptr = get_func(new_str);
 
-			if (!(func_ptr))
-			{
-				fprintf(stderr, "L%d: unknown instruction here %s\n", fileline, new_str);
-				exit(EXIT_FAILURE);
-			}
-			func_ptr(stack, fileline);
-			break;
+		if (!(func_ptr))
+		{
+			fprintf(stderr, "L%d: unknown instruction %s\n", fileline, new_str);
+			exit(EXIT_FAILURE);
 		}
-		break;
+		func_ptr(stack, fileline);
 	}
 }
 

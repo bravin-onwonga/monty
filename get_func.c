@@ -10,14 +10,15 @@
 void (*get_func(char *str))(stack_t **, unsigned int)
 {
 	instruction_t _funcs[] = {
+	    {"pop", pop},
 	    {"pall", print_all},
 	    {"pint", print_top},
-	    {"pop", pop_top}};
+	    {"swap", swap},
+	};
 
-	int i;
-	int func_count = sizeof(_funcs) / sizeof(_funcs[0]);
+	int i = 0;
+	int func_count = 4;
 
-	i = 0;
 	while (i < func_count)
 	{
 		if (strcmp(_funcs[i].opcode, str) == 0)
