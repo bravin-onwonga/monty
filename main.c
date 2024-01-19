@@ -81,7 +81,7 @@ void process_opcode(char *str, int fileline)
 
 			if (!(func_ptr))
 			{
-				fprintf(stderr, "L%d: unknown instruction <opcode>\n", fileline);
+				fprintf(stderr, "L%d: unknown instruction here %s\n", fileline, new_str);
 				exit(EXIT_FAILURE);
 			}
 			func_ptr(stack, fileline);

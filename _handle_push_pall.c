@@ -11,11 +11,9 @@ char *arr_to_str(char **arr);
  * Return: the number of nodes
  */
 
-void print_all(stack_t **h, unsigned int line_number)
+void print_all(stack_t **h, unsigned int line_number __attribute__((unused)))
 {
 	stack_t *curr;
-
-	(void)(line_number);
 
 	if (h)
 	{
@@ -23,7 +21,7 @@ void print_all(stack_t **h, unsigned int line_number)
 
 		while (curr != NULL)
 		{
-			fprintf(stdout, "%d\n", curr->n);
+			printf("%d\n", curr->n);
 			curr = curr->next;
 		}
 	}
