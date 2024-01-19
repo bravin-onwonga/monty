@@ -47,6 +47,7 @@ stack_t *_push(char **arr, unsigned int line_number)
 		{
 			if (s[j] < '0' || s[j] > '9')
 			{
+				free(arr);
 				fprintf(stderr, "L%d: usage: push integer\n", line_number);
 				exit(EXIT_FAILURE);
 			}
@@ -55,6 +56,7 @@ stack_t *_push(char **arr, unsigned int line_number)
 	}
 	else
 	{
+		free(arr);
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}

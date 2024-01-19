@@ -41,6 +41,7 @@ int main(int argc, char **argv)
 
 	while ((read = getline(&opcode, &opcode_size, file)) != -1)
 	{
+		printf("%s-----\n", opcode);
 		fileline = fileline + 1;
 		process_opcode(opcode, fileline);
 	}
@@ -60,6 +61,7 @@ int main(int argc, char **argv)
 
 void process_opcode(char *str, int fileline)
 {
+	int i = 0;
 	char *new_str;
 	char **opcode_arr;
 	void (*func_ptr)(stack_t **, unsigned int);
@@ -67,6 +69,12 @@ void process_opcode(char *str, int fileline)
 	new_str = remove_spaces(str);
 
 	opcode_arr = split_string(new_str);
+
+	while (opcode_arr[i])
+	{
+		printf("\n-----%s-----\n", opcode_arr[i]);
+		i++;
+	}
 
 	if (strcmp(opcode_arr[0], "push") == 0)
 	{
@@ -82,6 +90,7 @@ void process_opcode(char *str, int fileline)
 			fprintf(stderr, "L%d: unknown instruction %s\n", fileline, new_str);
 			exit(EXIT_FAILURE);
 		}
+		free(opcode_arr);
 		func_ptr(stack, fileline);
 	}
 }
@@ -127,6 +136,8 @@ char *remove_spaces(char *str)
 			j++;
 		}
 	}
+
+	free(str);
 
 	return (s);
 }
