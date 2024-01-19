@@ -55,7 +55,7 @@ stack_t *_push(char **arr, unsigned int line_number)
 	}
 	else
 	{
-		fprintf(stderr, "L%d: usage: push integer %s\n", line_number);
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
