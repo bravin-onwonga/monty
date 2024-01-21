@@ -42,10 +42,10 @@ int main(int argc, char **argv)
 	while ((read = getline(&opcode, &opcode_size, file)) != -1)
 	{
 		fileline = fileline + 1;
-		process_opcode(opcode, fileline);
+		if (strlen(opcode) != 1)
+			process_opcode(opcode, fileline);
 	}
 
-	free(opcode);
 	fclose(file);
 
 	exit(EXIT_SUCCESS);
@@ -66,6 +66,9 @@ void process_opcode(char *str, int fileline)
 
 	new_str = remove_spaces(str);
 
+	if (new_str[0] == '\0')
+		return;
+
 	opcode_arr = split_string(new_str);
 
 	if (strcmp(opcode_arr[0], "push") == 0)
@@ -75,16 +78,18 @@ void process_opcode(char *str, int fileline)
 
 	else
 	{
-		func_ptr = get_func(opcode_arr[0]);
-
-		if (!(func_ptr))
+		if (opcode_arr)
 		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", fileline, new_str);
-			exit(EXIT_FAILURE);
+			func_ptr = get_func(opcode_arr[0]);
+
+			if (!(func_ptr))
+			{
+				fprintf(stderr, "L%d: unknown instruction %s\n", fileline, new_str);
+				exit(EXIT_FAILURE);
+			}
+			func_ptr(stack, fileline);
 		}
-		func_ptr(stack, fileline);
 	}
-	handle_free(opcode_arr);
 }
 
 /**
@@ -99,33 +104,43 @@ char *remove_spaces(char *str)
 	int len = 0, i, j = 0;
 	char *s;
 
-	for (i = 0; str[i] != '\0'; i++)
+	for (i = 0; str[i] != '\n'; i++)
 	{
 		if (str[i] != ' ')
 			len++;
-		if (str[i] == ' ' && str[i + 1] != ' ')
+		if ((str[i] == ' ') && (str[i + 1] != ' ' && str[i + 1] != '\n'))
 			len++;
 	}
 
-	s = malloc(sizeof(char) * len);
-
-	if (s == NULL)
+	if (len == 0)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		s = malloc(1);
+		s[0] = '\n';
 	}
 
-	for (i = 0; str[i] != '\0'; i++)
+	else
 	{
-		if (str[i] != ' ' && str[i] != '\n')
+
+		s = malloc(sizeof(char) * len);
+
+		if (s == NULL)
 		{
-			s[j] = str[i];
-			j++;
+			fprintf(stderr, "Error: malloc failed\n");
+			exit(EXIT_FAILURE);
 		}
-		if (str[i] == ' ' && str[i + 1] != ' ')
+
+		for (i = 0; str[i] != '\0'; i++)
 		{
-			s[j] = str[i];
-			j++;
+			if (str[i] != ' ' && str[i] != '\n')
+			{
+				s[j] = str[i];
+				j++;
+			}
+			if (str[i] == ' ' && str[i + 1] != ' ')
+			{
+				s[j] = str[i];
+				j++;
+			}
 		}
 	}
 

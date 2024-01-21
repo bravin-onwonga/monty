@@ -9,7 +9,7 @@
 
 void pop(stack_t **h, unsigned int line_number)
 {
-	stack_t *temp;
+	/* stack_t *temp; */
 
 	if (!h || !(*h))
 	{
@@ -17,13 +17,11 @@ void pop(stack_t **h, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	temp = *h;
+	/* temp = *h; */
 
 	*h = (*h)->next;
 	if (*h)
 		(*h)->prev = NULL;
 
-	free(temp->next);
-	free(temp->prev);
-	free(temp);
+	*stack = *h;
 }
